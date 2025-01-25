@@ -1,0 +1,51 @@
+// https://github.com/Alexays/Waybar/wiki
+{
+  "name": "status-bar",
+  "layer": "top",
+  "modules-left": ["network"],
+  "modules-center": ["niri/workspaces"],
+  "modules-right": ["niri/language", "clock", "battery"],
+  "reload_style_on_change": true,
+  "network": {
+    "interface": "wlp1s0",
+    "format": "{ifname}",
+    "format-wifi": "{essid}",
+    "format-ethernet": "{ipaddr}/{cidr}",
+    "format-disconnected": "-",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "tooltip-format-wifi": "{signalStrength}%",
+    "tooltip-format-ethernet": "{ifname}",
+    "tooltip-format-disconnected": "",
+    "max-length": 50
+  },
+  "niri/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+	    "active": "\uf111",
+	    "default": "\uf10c"
+    }
+  },
+  "niri/language": {
+    "format-en": "ENG",
+    "format-ru": "РУС"
+  },
+  "clock": {
+    "format": "{:L%H:%M | %A, %d.%m.%Y}",
+    "tooltip-format": "<tt>{calendar}</tt>",
+    "locale": "ru_RU.UTF-8",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "format": {
+        "months": "<span font='FiraCode Nerd Font 10' color='#52796f'><b>{}</b></span>",
+        "days": "<span font='FiraCode Nerd Font 10' color='#cad2c5'><b>{}</b></span>",
+        "weekdays": "<span font='FiraCode Nerd Font 10' color='#84a98c'><b>{}</b></span>",
+        "today": "<span font='FiraCode Nerd Font 10' color='#ff4444'><b><u>{}</u></b></span>"
+      }
+    }
+  },
+  "battery": {
+    "format-charging": "{capacity}% <span color='#00ff00' font='5px'>\uf111</span>"
+  }
+}
+
