@@ -1,0 +1,238 @@
+// -------------------------------------------------------------------- General
+
+screenshot-path "~/Pictures/Снимки экрана/%Y-%m-%d %H-%M-%S_Снимок экрана.png"
+hotkey-overlay  { skip-at-startup; }
+prefer-no-csd
+
+
+// ---------------------------------------------------------------------- Input
+
+input {
+  keyboard {
+    xkb {
+      layout "us,ru"
+      options "grp:alt_shift_toggle"
+    }
+  }
+  touchpad {
+    off
+    tap
+    natural-scroll
+  }
+}
+
+
+// --------------------------------------------------------------------- Output
+
+output "eDP-1"    { scale 1.2; }
+output "HDMI-A-1" { scale 2.0; }
+
+
+// --------------------------------------------------------------------- Layout
+
+layout {
+  gaps 5
+  focus-ring { off; }
+  border     { off; }
+
+  preset-column-widths {
+    proportion 0.25
+    proportion 0.5
+    proportion 0.75
+  }
+
+  preset-window-heights {
+    proportion 0.5
+    proportion 1.0
+  }
+
+  default-column-width {
+    proportion 0.5
+  }
+}
+
+
+// ----------------------------------------------------------------- At startup
+
+spawn-at-startup "gammastep" "-O" "3000"
+spawn-at-startup "waybar"
+spawn-at-startup "python3" "$HOME/data/wallpapers/set_random_wallpaper.py"
+
+
+// -------------------------------------------------------------------- Windows
+
+window-rule {
+  geometry-corner-radius 10
+  clip-to-geometry       true
+}
+
+window-rule {
+  match app-id="yandex-browser"
+  match app-id="telegram"
+  match app-id="joplin"
+
+  open-maximized true
+}
+
+window-rule {
+  match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+
+  open-maximized true
+  block-out-from "screen-capture"
+}
+
+
+// --------------------------------------------------------------- Key bindings
+
+binds {
+  // General
+  Print         { screenshot; }
+  Super+Q       { close-window; }
+  Super+Shift+Q { quit; }
+
+  // Apps
+  Super+Return {
+    spawn "alacritty"
+  }
+  Super+Ctrl+Return {
+    spawn "alacritty" "--working-directory" "$HOME/code/project/backend"
+  }
+  Super+Shift+Return {
+    spawn "alacritty" "--working-directory" "$HOME/code/project/frontend/src"
+  }
+  Super+T {
+    spawn "telegram-desktop"
+  }
+  Super+V {
+    spawn "alacritty" "-e" "htop"
+  }
+  Super+E {
+    spawn "nautilus"
+  }
+  Super+W {
+    spawn "yandex-browser-stable" "--ozone-platform=wayland"
+  }
+  Super+N {
+    spawn "/opt/Joplin/Joplin-3.1.24.AppImage" "--ozone-platform=wayland"
+  }
+  Super+O {
+    spawn "obsidian" "--ozone-platform=wayland"
+  }
+  Super+Space {
+    spawn "xfce4-appfinder"
+  }
+  Super+P {
+    spawn "keepassxc"
+  }
+
+  // Commands
+  Super+Alt+G      { spawn "gammastep" "-O" "3000"; }
+  Super+Alt+W      { spawn "nmcli" "device" "wifi" "rescan"; }
+  Super+Shift+W    { spawn "alacritty" "-e" "nmcli" "device" "wifi" "list"; }
+  Super+Ctrl+Alt+S { spawn "systemctl" "suspend"; }
+  Super+Ctrl+Alt+H { spawn "systemctl" "poweroff"; }
+  Super+Ctrl+Alt+R { spawn "systemctl" "reboot"; }
+
+  // Audio
+  XF86AudioRaiseVolume allow-when-locked=true {
+    spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"
+  }
+  XF86AudioLowerVolume allow-when-locked=true {
+    spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"
+  }
+  XF86AudioMute allow-when-locked=true {
+    spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"
+  }
+  XF86AudioMicMute allow-when-locked=true {
+    spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"
+  }
+
+  // Brightness
+  XF86MonBrightnessUp allow-when-locked=true {
+    spawn "brightnessctl" "s" "+10%"
+  }
+  XF86MonBrightnessDown allow-when-locked=true {
+    spawn "brightnessctl" "s" "10%-"
+  }
+
+  // Focus column
+  Super+H               { focus-column-left; }
+  Super+WheelScrollUp   { focus-column-left; }
+  Super+L               { focus-column-right; }
+  Super+WheelScrollDown { focus-column-right; }
+
+  // Move column
+  Super+Ctrl+H { move-column-left; }
+  Super+Ctrl+L { move-column-right; }
+
+  // Focus window
+  Super+J { focus-window-down; }
+  Super+K { focus-window-up; }
+
+  // Move window
+  Super+Ctrl+J { move-window-down; }
+  Super+Ctrl+K { move-window-up; }
+
+  // Consume or expell window
+  Super+Comma        { consume-window-into-column; }
+  Super+Period       { expel-window-from-column; }
+  Super+BracketLeft  { consume-or-expel-window-left; }
+  Super+BracketRight { consume-or-expel-window-right; }
+  
+  // Window height, fullscreen
+  Super+Shift+Minus { set-window-height "-10%"; }
+  Super+Shift+Equal { set-window-height "+10%"; }
+  Super+Shift+R     { switch-preset-window-height; }
+  Super+Shift+F     { fullscreen-window; }
+
+  // Column width, center column
+  Super+Minus { set-column-width "-10%"; }
+  Super+Equal { set-column-width "+10%"; }
+  Super+R     { switch-preset-column-width; }
+  Super+F     { maximize-column; }
+  Super+C     { center-column; }
+
+  // Focus monitor
+  Super+Shift+H { focus-monitor-left; }
+  Super+Shift+J { focus-monitor-down; }
+  Super+Shift+K { focus-monitor-up; }
+  Super+Shift+L { focus-monitor-right; }
+
+  // Move column to monitor
+  Super+Shift+Ctrl+H { move-column-to-monitor-left; }
+  Super+Shift+Ctrl+J { move-column-to-monitor-down; }
+  Super+Shift+Ctrl+K { move-column-to-monitor-up; }
+  Super+Shift+Ctrl+L { move-column-to-monitor-right; }
+
+  // Focus workspace
+  Super+U                     { focus-workspace-down; }
+  Super+Shift+WheelScrollDown { focus-workspace-down; }
+  Super+I                     { focus-workspace-up; }
+  Super+Shift+WheelScrollUp   { focus-workspace-up; }
+  Super+1                     { focus-workspace 1; }
+  Super+2                     { focus-workspace 2; }
+  Super+3                     { focus-workspace 3; }
+  Super+4                     { focus-workspace 4; }
+  Super+5                     { focus-workspace 5; }
+  Super+6                     { focus-workspace 6; }
+  Super+7                     { focus-workspace 7; }
+  Super+8                     { focus-workspace 8; }
+  Super+9                     { focus-workspace 9; }
+
+  // Move column to workspace
+  Super+Ctrl+U { move-column-to-workspace-down; }
+  Super+Ctrl+I { move-column-to-workspace-up; }
+  Super+Ctrl+1 { move-column-to-workspace 1; }
+  Super+Ctrl+2 { move-column-to-workspace 2; }
+  Super+Ctrl+3 { move-column-to-workspace 3; }
+  Super+Ctrl+4 { move-column-to-workspace 4; }
+  Super+Ctrl+5 { move-column-to-workspace 5; }
+  Super+Ctrl+6 { move-column-to-workspace 6; }
+  Super+Ctrl+7 { move-column-to-workspace 7; }
+  Super+Ctrl+8 { move-column-to-workspace 8; }
+  Super+Ctrl+9 { move-column-to-workspace 9; }
+
+  // Move workspace
+  Super+Shift+U { move-workspace-down; }
+  Super+Shift+I { move-workspace-up; }
+}
