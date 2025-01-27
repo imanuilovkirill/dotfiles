@@ -56,7 +56,7 @@ layout {
 
 spawn-at-startup "gammastep" "-O" "3000"
 spawn-at-startup "waybar"
-spawn-at-startup "python3" "$HOME/data/wallpapers/set_random_wallpaper.py"
+spawn-at-startup "python3" "/home/imanuilovkirill/data/wallpapers/set_random_wallpaper.py"
 
 
 // -------------------------------------------------------------------- Windows
@@ -95,10 +95,10 @@ binds {
     spawn "alacritty"
   }
   Super+Ctrl+Return {
-    spawn "alacritty" "--working-directory" "$HOME/code/project/backend"
+    spawn "alacritty" "--working-directory" "/home/imanuilovkirill/code/project/backend"
   }
   Super+Shift+Return {
-    spawn "alacritty" "--working-directory" "$HOME/code/project/frontend/src"
+    spawn "alacritty" "--working-directory" "/home/imanuilovkirill/code/project/frontend/src"
   }
   Super+T {
     spawn "telegram-desktop"
