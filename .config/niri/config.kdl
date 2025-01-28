@@ -126,6 +126,9 @@ binds {
   }
 
   // Commands
+  Super+A          {
+    spawn "pactl" "set-default-sink" "alsa_output.usb-KTMICRO_JBL_TUNE_310C_USB-C_2020-02-20-0000-0000-0000-00.analog-stereo";
+  }
   Super+Alt+G      { spawn "gammastep" "-O" "3000"; }
   Super+Alt+W      { spawn "nmcli" "device" "wifi" "rescan"; }
   Super+Shift+W    { spawn "alacritty" "-e" "nmcli" "device" "wifi" "list"; }
