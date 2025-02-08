@@ -13,7 +13,7 @@
   margin-left: 5px;
 }
 
-#language, #clock, #battery, #network {
+#language, #clock, #battery, #network, #pulseaudio, #bluetooth, #backlight {
   background-color: #242730;
   border: 1px solid #242730;
   border-radius: 10px;

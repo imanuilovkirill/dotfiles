@@ -1,6 +1,6 @@
 // -------------------------------------------------------------------- General
 
-screenshot-path "~/Pictures/Снимки экрана/%Y-%m-%d %H-%M-%S_Снимок экрана.png"
+screenshot-path "~/data/Снимки экрана/%Y-%m-%d %H-%M-%S_Снимок экрана.png"
 hotkey-overlay  { skip-at-startup; }
 prefer-no-csd
 
@@ -56,7 +56,7 @@ layout {
 
 spawn-at-startup "gammastep" "-O" "3000"
 spawn-at-startup "waybar"
-spawn-at-startup "python3" "/home/imanuilovkirill/data/wallpapers/set_random_wallpaper.py"
+spawn-at-startup "swaybg" "-c" "000000"
 
 
 // -------------------------------------------------------------------- Windows

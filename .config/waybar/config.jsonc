@@ -2,7 +2,7 @@
 {
   "name": "status-bar",
   "layer": "top",
-  "modules-left": ["network"],
+  "modules-left": ["network", "bluetooth", "pulseaudio", "backlight"],
   "modules-center": ["niri/workspaces"],
   "modules-right": ["niri/language", "clock", "battery"],
   "reload_style_on_change": true,
@@ -11,7 +11,7 @@
     "format": "{ifname}",
     "format-wifi": "{essid}",
     "format-ethernet": "{ipaddr}/{cidr}",
-    "format-disconnected": "-",
+    "format-disconnected": "N-",
     "tooltip-format": "{ifname} via {gwaddr}",
     "tooltip-format-wifi": "{signalStrength}%",
     "tooltip-format-ethernet": "{ifname}",
@@ -46,6 +46,17 @@
   },
   "battery": {
     "format-charging": "{capacity}% <span color='#00ff00' font='5px'>\uf111</span>"
+  },
+  "pulseaudio": {
+    "format": "A{volume}",
+    "format-muted": "A-"
+  },
+  "bluetooth": {
+    "format": "BT{num_connections}",
+    "format-off": "BT-"
+  },
+  "backlight": {
+    "format": "B{percent}"
   }
 }
 
